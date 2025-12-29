@@ -46,13 +46,6 @@ const DELETE_ITEM = `mutation Delete($id: ID!) {
 }`;
 
 function AuthenticatedApp({ signOut }) {
-  console.log("Config Check:", import.meta.env.VITE_USER_POOL_ID);
-  console.log("Config Check:", import.meta.env.VITE_CLIENT_ID);
-  console.log("Config Check:", import.meta.env.VITE_IDENTITY_POOL_ID);
-  console.log("Config Check:", import.meta.env.VITE_GRAPHQL_URL);
-  console.log("Config Check:", import.meta.env.VITE_S3_BUCKET);
-  console.log("Config Check:", import.meta.env.VITE_REGION);
-
   const [items, setItems] = useState([]);
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);

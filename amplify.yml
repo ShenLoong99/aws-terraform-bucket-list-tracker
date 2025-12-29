@@ -10,6 +10,12 @@ applications:
             - npm ci # Use 'ci' for a faster, more reliable build in the cloud
         build:
           commands:
+            - echo "VITE_GRAPHQL_URL=$VITE_GRAPHQL_URL" >> .env
+            - echo "VITE_USER_POOL_ID=$VITE_USER_POOL_ID" >> .env
+            - echo "VITE_CLIENT_ID=$VITE_CLIENT_ID" >> .env
+            - echo "VITE_IDENTITY_POOL_ID=$VITE_IDENTITY_POOL_ID" >> .env
+            - echo "VITE_S3_BUCKET=$VITE_S3_BUCKET" >> .env
+            - echo "VITE_REGION=$VITE_REGION" >> .env
             - npm run build
       artifacts:
         baseDirectory: frontend/dist
