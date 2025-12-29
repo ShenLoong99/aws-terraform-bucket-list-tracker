@@ -8,7 +8,7 @@ resource "aws_amplify_app" "bucket_list" {
 
   # Crucial for Mono-repos (folders within folders)
   # This makes Amplify ignore changes in other folders
-  # enable_auto_branch_creation = true
+  enable_auto_branch_creation = true
 
   # Environment variables for the frontend to know where the API is
   environment_variables = {
@@ -26,5 +26,5 @@ resource "aws_amplify_branch" "main" {
   branch_name = "main" # Ensure this matches your GitHub branch name
 
   # Enables the "Continuous Deployment" feature
-  enable_auto_build = true
+  # enable_auto_build = true
 }
