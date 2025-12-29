@@ -4,8 +4,8 @@ applications:
       phases:
         preBuild:
           commands:
-            # - echo "Waiting 60 seconds for Terraform Cloud sync..." # Wait for Terraform Cloud to finish provisioning/updating resources
-            # - sleep 60
+            - echo "Waiting 60 seconds for Terraform Cloud sync..." # Wait for Terraform Cloud to finish provisioning/updating resources
+            - sleep 60
             - cd frontend
             - npm ci # Use 'ci' for a faster, more reliable build in the cloud
         build:

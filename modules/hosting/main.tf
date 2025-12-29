@@ -26,5 +26,5 @@ resource "aws_amplify_branch" "main" {
   branch_name = "main" # Ensure this matches your GitHub branch name
 
   # Enables the "Continuous Deployment" feature
-  # enable_auto_build = true
+  enable_auto_build = true
 }
