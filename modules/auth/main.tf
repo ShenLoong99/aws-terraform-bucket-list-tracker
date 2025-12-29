@@ -50,11 +50,11 @@ resource "aws_iam_role" "authenticated" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect    = "Allow"
-        Principal = { 
-          "Federated" : "cognito-identity.amazonaws.com" 
+        Effect = "Allow"
+        Principal = {
+          "Federated" : "cognito-identity.amazonaws.com"
         }
-        Action    = "sts:AssumeRoleWithWebIdentity"
+        Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           "StringEquals" : {
             # This dynamic reference ensures the role trusts the pool you just built
@@ -93,7 +93,8 @@ resource "aws_iam_role_policy" "s3_access" {
 // Role Attachment (The "Glue" that connects the Role to the Pool)
 resource "aws_cognito_identity_pool_roles_attachment" "main" {
   identity_pool_id = aws_cognito_identity_pool.main.id
+
   roles = {
-    authenticated = aws_iam_role.authenticated.arn
+    "authenticated" = aws_iam_role.authenticated.arn
   }
 }
