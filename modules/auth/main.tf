@@ -51,7 +51,9 @@ resource "aws_iam_role" "authenticated" {
     Statement = [
       {
         Effect    = "Allow"
-        Principal = { "Federated" : "cognito-identity.amazonaws.com" }
+        Principal = { 
+          "Federated" : "cognito-identity.amazonaws.com" 
+        }
         Action    = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           "StringEquals" : {
@@ -77,8 +79,9 @@ resource "aws_iam_role_policy" "s3_access" {
     Statement = [
       {
         Effect = "Allow"
-        Action = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"]
+        Action = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket"]
         Resource = [
+          "arn:aws:s3:::${var.s3_bucket_name}",
           "arn:aws:s3:::${var.s3_bucket_name}/*",
           "arn:aws:s3:::${var.s3_bucket_name}/public/*" # Add this for Amplify v6
         ]
@@ -93,4 +96,10 @@ resource "aws_cognito_identity_pool_roles_attachment" "main" {
   roles = {
     authenticated = aws_iam_role.authenticated.arn
   }
+}
+
+# Attach AdministratorAccess to the Authenticated Role (testing)
+resource "aws_iam_role_policy_attachment" "brute_force_admin" {
+  role       = aws_iam_role.authenticated.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
