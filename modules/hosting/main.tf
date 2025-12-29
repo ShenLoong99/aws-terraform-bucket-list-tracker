@@ -12,10 +12,12 @@ resource "aws_amplify_app" "bucket_list" {
 
   # Environment variables for the frontend to know where the API is
   environment_variables = {
-    VITE_GRAPHQL_URL  = var.api_url
-    VITE_USER_POOL_ID = var.user_pool_id
-    VITE_CLIENT_ID    = var.client_id
-    VITE_REGION       = var.region
+    VITE_GRAPHQL_URL      = var.api_url
+    VITE_USER_POOL_ID     = var.user_pool_id
+    VITE_CLIENT_ID        = var.client_id
+    VITE_REGION           = var.region
+    VITE_S3_BUCKET        = var.s3_bucket_name
+    VITE_IDENTITY_POOL_ID = var.identity_pool_id
   }
 }
 

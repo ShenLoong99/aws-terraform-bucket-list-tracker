@@ -26,3 +26,7 @@ variable "region" {
 variable "s3_bucket_name" {
   type = string
 }
+
+variable "identity_pool_id" {
+  type = string
+}

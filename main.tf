@@ -26,12 +26,13 @@ module "storage" {
 }
 
 module "hosting" {
-  source         = "./modules/hosting"
-  github_token   = var.github_token
-  github_repo    = var.github_repo
-  api_url        = module.api.api_url
-  user_pool_id   = module.auth.user_pool_id
-  client_id      = module.auth.client_id
-  region         = var.aws_region
-  s3_bucket_name = module.storage.bucket_name
+  source           = "./modules/hosting"
+  github_token     = var.github_token
+  github_repo      = var.github_repo
+  api_url          = module.api.api_url
+  user_pool_id     = module.auth.user_pool_id
+  client_id        = module.auth.client_id
+  region           = var.aws_region
+  s3_bucket_name   = module.storage.bucket_name
+  identity_pool_id = module.auth.identity_pool_id
 }
