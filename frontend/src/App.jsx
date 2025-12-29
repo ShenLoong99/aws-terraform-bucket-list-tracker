@@ -4,6 +4,7 @@ import { generateClient } from 'aws-amplify/api';
 import { Authenticator, useTheme, View, Text, Heading, Button as AmplifyButton } from '@aws-amplify/ui-react';
 import { uploadData, getUrl } from 'aws-amplify/storage';
 import { Plus, Trash2, LogOut, Image as ImageIcon, CheckCircle } from 'lucide-react';
+import { fetchAuthSession } from 'aws-amplify/auth'; // Ensure this is imported
 import '@aws-amplify/ui-react/styles.css';
 
 // 1. Core Config (Same as before)
