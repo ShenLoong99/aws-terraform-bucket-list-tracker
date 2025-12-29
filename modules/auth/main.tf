@@ -69,6 +69,32 @@ resource "aws_iam_role" "authenticated" {
   })
 }
 
+# The "Empty" Unauthenticated Role
+resource "aws_iam_role" "unauthenticated" {
+  name = "bucket_list_unauth_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = "cognito-identity.amazonaws.com"
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "cognito-identity.amazonaws.com:aud" = "${aws_cognito_identity_pool.main.id}"
+          }
+          "ForAnyValue:StringLike" = {
+            "cognito-identity.amazonaws.com:amr" = "unauthenticated"
+          }
+        }
+      }
+    ]
+  })
+}
+
 # Policy to allow S3 Access
 resource "aws_iam_role_policy" "s3_access" {
   name = "s3_bucket_access_policy"
@@ -96,5 +122,6 @@ resource "aws_cognito_identity_pool_roles_attachment" "main" {
 
   roles = {
     "authenticated" = aws_iam_role.authenticated.arn
+    "unauthenticated" = aws_iam_role.unauthenticated.arn
   }
 }
