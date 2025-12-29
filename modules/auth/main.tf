@@ -58,7 +58,7 @@ resource "aws_iam_role" "authenticated" {
         Condition = {
           "StringEquals" : {
             # This dynamic reference ensures the role trusts the pool you just built
-            "cognito-identity.amazonaws.com:aud" : aws_cognito_identity_pool.main.id
+            "cognito-identity.amazonaws.com:aud" : "${aws_cognito_identity_pool.main.id}"
           }
           "ForAnyValue:StringLike" : {
             "cognito-identity.amazonaws.com:amr" : "authenticated"
@@ -96,10 +96,4 @@ resource "aws_cognito_identity_pool_roles_attachment" "main" {
   roles = {
     authenticated = aws_iam_role.authenticated.arn
   }
-}
-
-# Attach AdministratorAccess to the Authenticated Role (testing)
-resource "aws_iam_role_policy_attachment" "brute_force_admin" {
-  role       = aws_iam_role.authenticated.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
