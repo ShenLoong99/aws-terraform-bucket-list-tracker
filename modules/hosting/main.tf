@@ -22,4 +22,7 @@ resource "aws_amplify_app" "bucket_list" {
 resource "aws_amplify_branch" "main" {
   app_id      = aws_amplify_app.bucket_list.id
   branch_name = "main" # Ensure this matches your GitHub branch name
+
+  # Enables the "Continuous Deployment" feature
+  enable_auto_build = true
 }

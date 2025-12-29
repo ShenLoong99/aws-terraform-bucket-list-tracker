@@ -4,16 +4,16 @@ applications:
       phases:
         preBuild:
           commands:
-            - cd bucket-list-tracker/frontend
+            - cd frontend
             - npm install
         build:
           commands:
-            - cd bucket-list-tracker/frontend
+            - cd frontend
             - npm run build
       artifacts:
-        baseDirectory: bucket-list-tracker/frontend/dist
+        baseDirectory: frontend/dist
         files:
           - '**/*'
       cache:
         paths:
-          - bucket-list-tracker/frontend/node_modules/**/*
+          - frontend/node_modules/**/*
