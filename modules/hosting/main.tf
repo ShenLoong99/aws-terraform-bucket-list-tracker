@@ -26,5 +26,25 @@ resource "aws_amplify_branch" "main" {
   branch_name = "main" # Ensure this matches your GitHub branch name
 
   # Enables the "Continuous Deployment" feature
-  enable_auto_build = true
+  enable_auto_build = false
+
+  # Optional: framework for better optimization
+  framework = "React"
+}
+
+resource "aws_amplify_webhook" "trigger" {
+  app_id      = aws_amplify_app.bucket_list.id
+  branch_name = aws_amplify_branch.main.branch_name
+  description = "Triggered by Terraform Cloud"
+}
+
+resource "null_resource" "trigger_amplify_build" {
+  # This ensures it only runs AFTER the app and variables are updated
+  triggers = {
+    env_vars = jsonencode(aws_amplify_app.bucket_list.environment_variables)
+  }
+
+  provisioner "local-exec" {
+    command = "curl -X POST -d {} '${aws_amplify_webhook.trigger.url}&operation=startbuild' -H 'Content-Type: application/json'"
+  }
 }

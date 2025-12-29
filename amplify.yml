@@ -7,15 +7,20 @@ applications:
             - echo "Waiting 60 seconds for Terraform Cloud sync..." # Wait for Terraform Cloud to finish provisioning/updating resources
             - sleep 60
             - cd frontend
+            - test -n "$VITE_CLIENT_ID" || (echo "VITE_CLIENT_ID is empty" && exit 1)
             - npm ci # Use 'ci' for a faster, more reliable build in the cloud
         build:
           commands:
+            - echo "===== DEBUG ENV VARS ====="
+            - printenv | grep VITE_
+            - echo "=========================="
             - echo "VITE_GRAPHQL_URL=$VITE_GRAPHQL_URL" >> .env
             - echo "VITE_USER_POOL_ID=$VITE_USER_POOL_ID" >> .env
             - echo "VITE_CLIENT_ID=$VITE_CLIENT_ID" >> .env
             - echo "VITE_IDENTITY_POOL_ID=$VITE_IDENTITY_POOL_ID" >> .env
             - echo "VITE_S3_BUCKET=$VITE_S3_BUCKET" >> .env
             - echo "VITE_REGION=$VITE_REGION" >> .env
+            - cat .env
             - npm run build
       artifacts:
         baseDirectory: frontend/dist
