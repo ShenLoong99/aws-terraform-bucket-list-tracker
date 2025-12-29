@@ -2,7 +2,7 @@
 resource "aws_amplify_app" "bucket_list" {
   name         = "BucketListTracker"
   repository   = var.github_repo
-  # access_token = var.github_token # Personal Access Token
+  access_token = var.github_token # Personal Access Token
 
   build_spec = file("amplify.yml")
 
