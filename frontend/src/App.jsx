@@ -63,14 +63,27 @@ function AuthenticatedApp({ signOut }) {
 
   const handleSave = async () => {
     if (!title) return;
+
+    // DEBUGGING START
+    try {
+        const session = await fetchAuthSession();
+        console.log("Full Auth Session:", session);
+        console.log("Credentials exist?", !!session.credentials);
+        
+        if (!session.credentials) {
+            console.error("CRITICAL: No credentials found in session. S3 upload will fail.");
+        }
+    } catch (err) {
+        console.error("Error fetching session:", err);
+    }
+    // DEBUGGING END
+
     setIsUploading(true);
 
     let imageUrl = null;
 
     if (file) {
       try {
-        const session = await fetchAuthSession()
-        console.log(session.credentials);
         const result = await uploadData({
           path: `public/${Date.now()}_${file.name}`,
           data: file,
