@@ -67,7 +67,7 @@ function AuthenticatedApp({ signOut }) {
 
     // DEBUGGING START
     try {
-        const session = await fetchAuthSession();
+        const session = await fetchAuthSession({ forceRefresh: true });
         console.log("Session:", session);
         console.log("IdentityId:", session.identityId);
         console.log("Credentials:", session.credentials);
