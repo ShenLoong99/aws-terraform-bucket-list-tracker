@@ -42,7 +42,7 @@ resource "aws_cognito_identity_pool" "main" {
 
   cognito_identity_providers {
     client_id               = aws_cognito_user_pool_client.client.id
-    provider_name           = "cognito-idp.${var.aws_region}.amazonaws.com/${aws_cognito_user_pool.pool.id}"
+    provider_name           = replace(aws_cognito_user_pool.pool.endpoint, "https://", "")
     server_side_token_check = false
   }
 }

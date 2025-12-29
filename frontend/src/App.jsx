@@ -68,8 +68,10 @@ function AuthenticatedApp({ signOut }) {
     // DEBUGGING START
     try {
         const session = await fetchAuthSession();
-        console.log("Full Auth Session:", session);
-        console.log("Credentials exist?", !!session.credentials);
+        console.log("Session:", session);
+        console.log("IdentityId:", session.identityId);
+        console.log("Credentials:", session.credentials);
+        console.log("Tokens:", session.tokens);
         
         if (!session.credentials) {
             console.error("CRITICAL: No credentials found in session. S3 upload will fail.");
