@@ -1,0 +1,1 @@
+output "api_url" { value = aws_appsync_graphql_api.api.uris["GRAPHQL"] }

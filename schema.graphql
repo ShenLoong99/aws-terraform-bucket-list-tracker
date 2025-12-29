@@ -1,0 +1,21 @@
+type BucketListItem {
+  id: ID!
+  title: String!
+  imageUrl: String
+  description: String
+  completed: Boolean!
+}
+
+type Query {
+  getBucketList: [BucketListItem]
+}
+
+type Mutation {
+  addItem(title: String!, description: String, imageUrl: String): BucketListItem
+  deleteItem(id: ID!): BucketListItem
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
