@@ -77,9 +77,8 @@ resource "aws_iam_role_policy" "s3_access" {
     Statement = [
       {
         Effect = "Allow"
-        Action = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject", "s3:ListBucket"]
+        Action = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"]
         Resource = [
-          "arn:aws:s3:::${var.s3_bucket_name}",
           "arn:aws:s3:::${var.s3_bucket_name}/*",
           "arn:aws:s3:::${var.s3_bucket_name}/public/*" # Add this for Amplify v6
         ]
