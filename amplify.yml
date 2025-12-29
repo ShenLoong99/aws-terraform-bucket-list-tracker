@@ -4,8 +4,6 @@ applications:
       phases:
         preBuild:
           commands:
-            - echo "Waiting 60 seconds for Terraform Cloud sync..." # Wait for Terraform Cloud to finish provisioning/updating resources
-            - sleep 60
             - cd frontend
             - test -n "$VITE_CLIENT_ID" || (echo "VITE_CLIENT_ID is empty" && exit 1)
             - npm ci # Use 'ci' for a faster, more reliable build in the cloud
