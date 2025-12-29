@@ -26,7 +26,8 @@ Amplify.configure({
   Storage: {
     S3: {
       bucket: import.meta.env.VITE_S3_BUCKET,
-      region: import.meta.env.VITE_REGION
+      region: import.meta.env.VITE_REGION,
+      identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID
     }
   }
 });
@@ -79,6 +80,8 @@ function AuthenticatedApp({ signOut }) {
       } catch (uploadError) {
         console.error("Upload failed:", uploadError);
         alert("Image upload failed, saving text only.");
+        setIsUploading(false);
+        return; // STOP HERE if upload fails
       }
     }
 
