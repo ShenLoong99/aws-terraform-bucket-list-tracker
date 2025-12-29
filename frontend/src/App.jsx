@@ -69,6 +69,8 @@ function AuthenticatedApp({ signOut }) {
 
     if (file) {
       try {
+        const session = await fetchAuthSession()
+        console.log(session.credentials);
         const result = await uploadData({
           path: `public/${Date.now()}_${file.name}`,
           data: file,
