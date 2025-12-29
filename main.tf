@@ -6,6 +6,7 @@ provider "aws" {
 module "auth" {
   source         = "./modules/auth"
   s3_bucket_name = module.storage.bucket_name
+  aws_region     = var.aws_region
 }
 
 module "database" {
