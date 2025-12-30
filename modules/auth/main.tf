@@ -39,11 +39,11 @@ resource "aws_cognito_user_pool" "pool" {
 
 # Cognito User Pool Client
 resource "aws_cognito_user_pool_client" "client" {
-  name                         = "bucket-list-client"
-  user_pool_id                 = aws_cognito_user_pool.pool.id
-  generate_secret              = false
-  supported_identity_providers = ["COGNITO"]
+  name         = "bucket-list-client"
+  user_pool_id = aws_cognito_user_pool.pool.id
 
+  generate_secret = false
+  
   # Add these lines to allow the React app to access the attribute 
   read_attributes  = ["email", "preferred_username"]
   write_attributes = ["email", "preferred_username"]
@@ -52,6 +52,8 @@ resource "aws_cognito_user_pool_client" "client" {
     "ALLOW_USER_SRP_AUTH",
     "ALLOW_REFRESH_TOKEN_AUTH"
   ]
+
+  supported_identity_providers = ["COGNITO"]
 }
 
 // Grant Permissions

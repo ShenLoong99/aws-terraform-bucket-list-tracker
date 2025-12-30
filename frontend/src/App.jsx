@@ -4,7 +4,6 @@ import { generateClient } from 'aws-amplify/api';
 import { Authenticator, useTheme, View, Text, Heading, Button as AmplifyButton } from '@aws-amplify/ui-react';
 import { uploadData, getUrl } from 'aws-amplify/storage';
 import { Plus, Trash2, LogOut, Image as ImageIcon, CheckCircle } from 'lucide-react';
-import { fetchAuthSession } from 'aws-amplify/auth'; // Ensure this is imported
 import '@aws-amplify/ui-react/styles.css';
 
 const client = generateClient();
@@ -27,9 +26,10 @@ function AuthenticatedApp({ signOut, user }) {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Extract the name from attributes safely 
-  const username = user?.userId ?? user?.username ?? "Traveler";
-  const preferredName = user?.attributes?.preferred_username || username;
+  // Extract the name. 
+  // Note: user.username usually returns the Cognito Sub (the ID in your screenshot)
+  // user.attributes.preferred_username is what you want
+  const preferredName = user?.attributes?.preferred_username || user?.signInDetails?.loginId || "Explorer";
 
   const fetchItems = async () => {
     try {
@@ -42,22 +42,6 @@ function AuthenticatedApp({ signOut, user }) {
 
   const handleSave = async () => {
     if (!title) return;
-
-    // DEBUGGING START
-    try {
-        const session = await fetchAuthSession({ forceRefresh: true });
-        console.log("Session:", session);
-        console.log("IdentityId:", session.identityId);
-        console.log("Credentials:", session.credentials);
-        console.log("Tokens:", session.tokens);
-        
-        if (!session.credentials) {
-            console.error("CRITICAL: No credentials found in session. S3 upload will fail.");
-        }
-    } catch (err) {
-        console.error("Error fetching session:", err);
-    }
-    // DEBUGGING END
 
     setIsUploading(true);
 
@@ -76,8 +60,6 @@ function AuthenticatedApp({ signOut, user }) {
       } catch (uploadError) {
         console.error("Upload failed:", uploadError);
         alert("Image upload failed, saving text only.");
-        setIsUploading(false);
-        return; // STOP HERE if upload fails
       }
     }
 
@@ -98,10 +80,35 @@ function AuthenticatedApp({ signOut, user }) {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Remove this from your list?")) return;
+  
     try {
-      await client.graphql({ query: DELETE_ITEM, variables: { id } });
+      // 2. Delete the image from S3 if it exists
+      if (item.imageUrl) {
+        try {
+          // Extract the path from the URL or store the path in your DB
+          // If your path logic is `public/${filename}`, you need that key
+          const url = new URL(item.imageUrl);
+          const path = url.pathname.split('/').slice(2).join('/'); // Adjust based on your bucket structure
+          
+          await remove({ 
+            path: item.storagePath || `public/${path}` 
+          });
+          console.log("Image deleted from S3");
+        } catch (s3Err) {
+          console.error("S3 Delete Error (Non-blocking):", s3Err);
+        }
+      }
+
+      // 3. Delete the database record
+      await client.graphql({ 
+        query: DELETE_ITEM, 
+        variables: { id: item.id } 
+      });
+      
       fetchItems();
-    } catch (err) { console.error("Delete Error:", err); }
+    } catch (err) { 
+      console.error("Delete Error:", err); 
+    }
   };
 
   return (
