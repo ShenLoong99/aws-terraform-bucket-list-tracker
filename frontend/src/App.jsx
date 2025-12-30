@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
 import { Authenticator, useTheme, View, Text, Heading, Button as AmplifyButton } from '@aws-amplify/ui-react';
-import { uploadData, getUrl } from 'aws-amplify/storage';
+import { uploadData, getUrl, remove } from 'aws-amplify/storage';
 import { Plus, Trash2, LogOut, Image as ImageIcon, CheckCircle } from 'lucide-react';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 
 const client = generateClient();
@@ -26,11 +26,8 @@ function AuthenticatedApp({ signOut, user }) {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Extract the name. 
-  // Note: user.username usually returns the Cognito Sub (the ID in your screenshot)
-  // user.attributes.preferred_username is what you want
-  console.log("User Object:", user);
-  const preferredName = user?.attributes?.preferred_username || user?.signInDetails?.loginId || "Explorer";
+  // Add a state to hold the actual attributes
+  const [userAttributes, setUserAttributes] = useState({});
 
   const fetchItems = async () => {
     try {
@@ -39,7 +36,24 @@ function AuthenticatedApp({ signOut, user }) {
     } catch (err) { console.error("Fetch Error:", err); }
   };
 
-  useEffect(() => { fetchItems(); }, []);
+  useEffect(() => {
+    fetchItems();
+    
+    // Fetch the full attribute list (preferred_username, email, etc.)
+    const getAttributes = async () => {
+      try {
+        const attributes = await fetchUserAttributes();
+        console.log("Full Attributes:", attributes);
+        setUserAttributes(attributes);
+      } catch (err) {
+        console.error("Error fetching attributes:", err);
+      }
+    };
+    getAttributes();
+  }, []);
+
+  // Update your display logic
+  const preferredName = userAttributes.preferred_username || user?.signInDetails?.loginId || "Explorer";
 
   const handleSave = async () => {
     if (!title) return;
@@ -81,6 +95,12 @@ function AuthenticatedApp({ signOut, user }) {
 
   const handleDelete = async (item) => {
     if (!window.confirm("Remove this from your list?")) return;
+
+    // Ensure the ID exists before calling the mutation
+    if (!item.id) {
+      console.error("Delete failed: Item ID is missing.");
+      return;
+    }
   
     try {
       // 2. Delete the image from S3 if it exists
@@ -196,7 +216,7 @@ function AuthenticatedApp({ signOut, user }) {
                   </div>
                 )}
                 <button 
-                  onClick={() => handleDelete(item.id)}
+                  onClick={() => handleDelete(item)}
                   className="absolute top-3 right-3 p-2 bg-white/90 hover:bg-red-50 text-slate-600 hover:text-red-600 rounded-full shadow-sm transition-colors"
                 >
                   <Trash2 size={16} />
