@@ -47,14 +47,17 @@ const DELETE_ITEM = `mutation Delete($id: ID!) {
   deleteItem(id: $id) { id }
 }`;
 
-function AuthenticatedApp({ signOut }) {
+function AuthenticatedApp({ signOut, user }) {
   const [items, setItems] = useState([]);
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Extract the username from the Cognito user object
-  const username = user?.attributes?.preferred_username || user?.username || "Traveler";
+  // Now 'user' is defined and this line will work
+  const username = user?.userId ?? user?.username ?? "Traveler";
+  
+  // To specifically get the custom preferred_username in Amplify v6:
+  const preferredName = user?.signInDetails?.loginId || user?.username || "Explorer";
 
   const fetchItems = async () => {
     try {
@@ -144,8 +147,11 @@ function AuthenticatedApp({ signOut }) {
             
             {/* Displaying the Username safely */}
             <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
+            {/* Replace your current welcome span with this safe version */}
             <span className="text-sm font-medium text-slate-600 hidden md:block">
-              Welcome, <span className="text-blue-600">{username}</span>
+              Welcome, <span className="text-blue-600">
+                {user?.attributes?.preferred_username || user?.username || "Traveler"}
+              </span>
             </span>
           </div>
           
