@@ -53,11 +53,9 @@ function AuthenticatedApp({ signOut, user }) {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Now 'user' is defined and this line will work
+  // Extract the name from attributes safely 
   const username = user?.userId ?? user?.username ?? "Traveler";
-  
-  // To specifically get the custom preferred_username in Amplify v6:
-  const preferredName = user?.signInDetails?.loginId || user?.username || "Explorer";
+  const preferredName = user?.attributes?.preferred_username || username;
 
   const fetchItems = async () => {
     try {
@@ -138,23 +136,20 @@ function AuthenticatedApp({ signOut, user }) {
       <nav className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
+            {/* Logo Section */}
             <div className="flex items-center gap-2">
-              <div className="bg-blue-600 p-1.5 rounded-lg text-white">
+               <div className="bg-blue-600 p-1.5 rounded-lg text-white">
                 <CheckCircle size={20} />
               </div>
               <span className="font-bold text-xl tracking-tight">BucketList</span>
             </div>
-            
-            {/* Displaying the Username safely */}
+            {/* USE THE VARIABLE HERE */}
             <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
-            {/* Replace your current welcome span with this safe version */}
             <span className="text-sm font-medium text-slate-600 hidden md:block">
-              Welcome, <span className="text-blue-600">
-                {user?.attributes?.preferred_username || user?.username || "Traveler"}
-              </span>
+              Welcome, <span className="text-blue-600">{preferredName}</span>
             </span>
           </div>
-          
+          {/* ... Sign Out Button ... */}
           <button onClick={signOut} className="flex items-center gap-2 text-slate-500 hover:text-red-600">
             <LogOut size={18} /> Sign Out
           </button>
