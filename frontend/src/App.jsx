@@ -86,17 +86,14 @@ function AuthenticatedApp({ signOut, user }) {
       // 2. Delete the image from S3 if it exists
       if (item.imageUrl) {
         try {
-          // Extract the path from the URL or store the path in your DB
-          // If your path logic is `public/${filename}`, you need that key
           const url = new URL(item.imageUrl);
-          const path = url.pathname.split('/').slice(2).join('/'); // Adjust based on your bucket structure
+          // This parses the filename from the S3 URL
+          const path = `public/${url.pathname.split('/').pop()}`;
           
-          await remove({ 
-            path: item.storagePath || `public/${path}` 
-          });
-          console.log("Image deleted from S3");
+          await remove({ path: path }); 
+          console.log("Image removed from S3");
         } catch (s3Err) {
-          console.error("S3 Delete Error (Non-blocking):", s3Err);
+          console.error("S3 remove failed:", s3Err);
         }
       }
 
@@ -105,7 +102,6 @@ function AuthenticatedApp({ signOut, user }) {
         query: DELETE_ITEM, 
         variables: { id: item.id } 
       });
-      
       fetchItems();
     } catch (err) { 
       console.error("Delete Error:", err); 
