@@ -29,6 +29,7 @@ function AuthenticatedApp({ signOut, user }) {
   // Extract the name. 
   // Note: user.username usually returns the Cognito Sub (the ID in your screenshot)
   // user.attributes.preferred_username is what you want
+  console.log("User Object:", user);
   const preferredName = user?.attributes?.preferred_username || user?.signInDetails?.loginId || "Explorer";
 
   const fetchItems = async () => {
@@ -78,7 +79,7 @@ function AuthenticatedApp({ signOut, user }) {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (item) => {
     if (!window.confirm("Remove this from your list?")) return;
   
     try {
