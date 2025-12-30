@@ -1,4 +1,12 @@
 <a id="readme-top"></a>
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![Unlicense License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
 <div>
    <h1>✅ Full-Stack BucketList Tracker</h1>
    <p align="center"> <img src="assets/aws-amplify.jpg" alt="aws-amplify" width="800"/><br>
@@ -70,7 +78,6 @@ AWS-TERRAFORM-BUCKETLIST/
 ├── assets/                         # Documentation images/media for README
 ├── frontend/                       # React + Vite application source code
 │   ├── src/
-│   │   ├── components/             # Reusable UI (Auth, Upload, List)
 │   │   ├── App.jsx                 # Main Logic + Amplify Configuration
 │   │   └── main.jsx                # Entry point
 │   ├── public/                     # Static assets (logo, etc.)
@@ -148,6 +155,9 @@ AWS-TERRAFORM-BUCKETLIST/
       <strong>The Webhook Handshake:</strong> Once you approve the plan, Terraform will create the backend. It will then automatically trigger the <strong>AWS Amplify Webhook</strong> to start the frontend build.<br>
       <img src="assets/deployment-log.png" alt="deployment-log" width="400" />
    </li>
+   <li>
+      <strong>Pro-Tip:</strong>  Local Development To test changes without deploying to production, create a <code>.env.local</code> file in the <code>frontend/</code> directory. Populate it with the outputs from your Terraform apply (User Pool IDs, S3 Bucket name, etc.) to link your local dev server to your live AWS resources
+   </li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="usage">Usage & Testing</h2>
@@ -157,7 +167,7 @@ AWS-TERRAFORM-BUCKETLIST/
     <img src="assets/login-page.png" alt="login-page" width="400">
    </li>
    <li>
-    <strong>Authentication:</strong>Sign up using the Cognito Authenticator UI.<br>
+    <strong>Authentication:</strong> Sign up using the Cognito Authenticator UI.<br>
     <img src="assets/register-page.png" alt="register-page" width="300">
     <img src="assets/email-verification-page.png" alt="email-verification-page" width="300">
    </li>
@@ -175,13 +185,11 @@ AWS-TERRAFORM-BUCKETLIST/
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="roadmap">Project Roadmap</h2>
 <ul>
-   <li>[x] Cognito User Pool & Identity Pool Integration</li>
-   <li>[x] AppSync GraphQL API for Data Persistence</li>
-   <li>[x] Terraform-to-Amplify Webhook Trigger</li>
-   <li>[x] Add, delete bucket item & upload image function</li>
-   <li>[x] DynamoDB NoSQL Table for Item Persistence</li>
-   <li>[x] AppSync GraphQL API for Data Mapping</li>
-   <li>[x] S3 Media Storage with IAM Role Handshake</li>
+   <li>[x] <strong>Core Auth:</strong> Cognito User Pool & Identity Pool Integration</li>
+   <li>[x] <strong>Data Layer:</strong> DynamoDB Persistence via AppSync GraphQL API</li>
+   <li>[x] <strong>Media:</strong> S3 Storage with IAM Role Handshake</li>
+   <li>[x] <strong>DevOps:</strong> Terraform-to-Amplify Webhook Trigger</li>
+   <li>[x] <strong>UI/UX:</strong> Add/Delete items with real-time S3 image cleanup</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="challenges-faced">Challenges</h2>
@@ -209,6 +217,18 @@ AWS-TERRAFORM-BUCKETLIST/
          <td><strong>Unauthenticated Access</strong></td>
          <td>Implemented a dummy <code>unauthenticated</code> IAM role to satisfy Cognito's requirement for a complete Role Mapping.</td>
       </tr>
+      <tr>
+         <td><strong>Dangling S3 Objects</strong></td>
+         <td>Updated <code>handleDelete</code> logic to parse the S3 URL and call <code>Storage.remove()</code> before deleting the DynamoDB record to prevent storage bloat.</td>
+      </tr>
+      <tr>
+         <td><strong>Missing User Attributes</strong></td>
+         <td>Configured <code>read_attributes</code> in Terraform and utilized <code>fetchUserAttributes</code> in React to display the <code>preferred_username</code> instead of the Cognito UUID.</td>
+      </tr>
+      <tr>
+         <td><strong>Regional Mismatch</strong></td>
+         <td>Standardized <code>VITE_REGION</code> across <code>main.jsx</code> and <code>App.jsx</code> to ensure S3 and Cognito clients targeted the correct Singapore (<code>ap-southeast-1</code>) endpoint.</td>
+      </tr>
    </tbody>
 </table>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
@@ -217,9 +237,23 @@ AWS-TERRAFORM-BUCKETLIST/
    <li><strong>Serverless Pricing:</strong> No costs incurred while the app is idle (Pay-as-you-go).</li>
    <li><strong>Free Tier:</strong> Stays within limits for the first 50,000 monthly active users (Cognito).</li>
    <li><strong>Amplify Webhooks:</strong> Prevents multiple failed builds by ensuring the environment is ready before building.</li>
+   <li><strong>Storage Efficiency:</strong> Explicitly deletes media from S3 when a list item is removed, ensuring you don't pay for "ghost" images that are no longer referenced in the database.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="contact">Contact</h2>
 <p>Tan Si Kai - <a href="https://linkedin.com/in/si-kai-tan">LinkedIn</a></p>
-<p>Project Link: <a href="hthttps://github.com/ShenLoong99/aws-terraform-bucket-list-tracker">BucketList Tracker Repo</a></p>
+<p>Project Link: <a href="https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker">BucketList Tracker Repo</a></p>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
+[contributors-shield]: https://img.shields.io/github/contributors/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
+[contributors-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
+[forks-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/network/members
+[stars-shield]: https://img.shields.io/github/stars/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
+[stars-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
+[issues-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/issues
+[license-shield]: https://img.shields.io/github/license/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
+[license-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/https://linkedin.com/in/si-kai-tan
