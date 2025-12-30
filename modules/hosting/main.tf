@@ -41,8 +41,8 @@ resource "aws_amplify_webhook" "trigger" {
 resource "null_resource" "trigger_amplify_build" {
   # This ensures it only runs AFTER the app and variables are updated
   triggers = {
-    always_run = timestamp() # This changes every single time you run terraform apply
-    env_vars = jsonencode(aws_amplify_app.bucket_list.environment_variables) # Keep this so you can track if vars changed in the logs
+    always_run = timestamp()                                                   # This changes every single time you run terraform apply
+    env_vars   = jsonencode(aws_amplify_app.bucket_list.environment_variables) # Keep this so you can track if vars changed in the logs
   }
 
   provisioner "local-exec" {

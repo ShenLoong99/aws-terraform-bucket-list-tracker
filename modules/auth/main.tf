@@ -1,6 +1,6 @@
 // Handles user sign-up and login
 resource "aws_cognito_user_pool" "pool" {
-  name = "bucket-list-user-pool"
+  name = "bucket-list-user-pool-v2"
 
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
@@ -9,35 +9,49 @@ resource "aws_cognito_user_pool" "pool" {
     minimum_length = 8
   }
 
-  # This forces the Authenticator UI to show the Email field
   # Standard attribute for a display name
   schema {
+    attribute_data_type = "String"
+    name                = "preferred_username"
+    mutable             = true
+    required            = false # Set to false to avoid legacy conflicts
+
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 50
+    }
+  }
+
+  # This forces the Authenticator UI to show the Email field
+  schema {
     attribute_data_type      = "String"
-    name                     = "preferred_username"
-    required                 = false # Standard attributes usually can't be 'required' if email is primary
+    name                     = "email"
+    required                 = true
     developer_only_attribute = false
     mutable                  = true
 
     string_attribute_constraints {
       min_length = 1
-      max_length = 100
+      max_length = 2048
     }
   }
 }
 
 # Cognito User Pool Client
 resource "aws_cognito_user_pool_client" "client" {
-  name         = "bucket-list-client"
-  user_pool_id = aws_cognito_user_pool.pool.id
+  name                         = "bucket-list-client"
+  user_pool_id                 = aws_cognito_user_pool.pool.id
+  generate_secret              = false
+  supported_identity_providers = ["COGNITO"]
 
-  generate_secret = false
+  # Add these lines to allow the React app to access the attribute 
+  read_attributes  = ["email", "preferred_username"]
+  write_attributes = ["email", "preferred_username"]
 
   explicit_auth_flows = [
     "ALLOW_USER_SRP_AUTH",
     "ALLOW_REFRESH_TOKEN_AUTH"
   ]
-
-  supported_identity_providers = ["COGNITO"]
 }
 
 // Grant Permissions
