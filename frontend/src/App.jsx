@@ -54,8 +54,7 @@ function AuthenticatedApp({ signOut }) {
   const [isUploading, setIsUploading] = useState(false);
 
   // Extract the username from the Cognito user object
-  const displayUsername = user?.userId ?? 'Adventurer';
-  const customUsername = user?.signInDetails?.loginId || user?.username;
+  const username = user?.attributes?.preferred_username || user?.username || "Traveler";
 
   const fetchItems = async () => {
     try {
@@ -142,20 +141,15 @@ function AuthenticatedApp({ signOut }) {
               </div>
               <span className="font-bold text-xl tracking-tight">BucketList</span>
             </div>
-
-            {/* NEW: Username Display */}
+            
+            {/* Displaying the Username safely */}
             <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
             <span className="text-sm font-medium text-slate-600 hidden md:block">
-              Welcome, <span className="text-blue-600">
-                {/* Check for the preferred_username attribute specifically */}
-                {user?.attributes?.preferred_username || "Traveler"}
-              </span>
+              Welcome, <span className="text-blue-600">{username}</span>
             </span>
           </div>
-          <button 
-            onClick={signOut}
-            className="flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors text-sm font-medium"
-          >
+          
+          <button onClick={signOut} className="flex items-center gap-2 text-slate-500 hover:text-red-600">
             <LogOut size={18} /> Sign Out
           </button>
         </div>
@@ -261,21 +255,12 @@ const components = {
 export default function App() {
   return (
     <Authenticator 
-      components={components} 
       loginMechanisms={['email']}
-      signUpAttributes={['preferred_username']}
-      formFields={{
-        signUp: {
-          preferred_username: {
-            label: 'Username',
-            placeholder: 'Choose a display name',
-            isRequired: true,
-            order: 1
-          }
-        }
-      }}
+      signUpAttributes={['preferred_username']} // This triggers the input field
     >
-      {({ signOut, user }) => <AuthenticatedApp signOut={signOut} user={user} />}
+      {({ signOut, user }) => (
+        <AuthenticatedApp signOut={signOut} user={user} />
+      )}
     </Authenticator>
   );
 }
