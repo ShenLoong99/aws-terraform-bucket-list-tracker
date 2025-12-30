@@ -7,32 +7,6 @@ import { Plus, Trash2, LogOut, Image as ImageIcon, CheckCircle } from 'lucide-re
 import { fetchAuthSession } from 'aws-amplify/auth'; // Ensure this is imported
 import '@aws-amplify/ui-react/styles.css';
 
-// 1. Core Config (Same as before)
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: import.meta.env.VITE_USER_POOL_ID,
-      userPoolClientId: import.meta.env.VITE_CLIENT_ID,
-      identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID,
-      loginWith: { email: true }
-    }
-  },
-  API: {
-    GraphQL: {
-      endpoint: import.meta.env.VITE_GRAPHQL_URL,
-      region: import.meta.env.VITE_REGION,
-      defaultAuthMode: 'userPool'
-    }
-  },
-  Storage: {
-    S3: {
-      bucket: import.meta.env.VITE_S3_BUCKET,
-      region: import.meta.env.VITE_REGION,
-      identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID
-    }
-  }
-});
-
 const client = generateClient();
 
 const ADD_ITEM = `mutation Add($title: String!, $imageUrl: String) {
@@ -256,6 +230,7 @@ const components = {
 export default function App() {
   return (
     <Authenticator 
+      components={components}
       loginMechanisms={['email']}
       signUpAttributes={['preferred_username']} // This triggers the input field
     >
