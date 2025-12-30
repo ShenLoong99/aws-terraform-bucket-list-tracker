@@ -54,6 +54,7 @@
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="architecture">Architecture</h2>
+<img src="assets/bucket-list-tracker.jpg" alt="archicture-diagram" width="800">
 <p> The architecture is built on a <strong>Deterministic Deployment</strong> model: </p>
 <ol>
    <li><strong>State Management:</strong> Terraform Cloud manages the AWS backend.</li>
@@ -157,8 +158,8 @@ AWS-TERRAFORM-BUCKETLIST/
    </li>
    <li>
     <strong>Authentication:</strong>Sign up using the Cognito Authenticator UI.<br>
-    <img src="assets/register-page.png" alt="register-page" width="400">
-    <img src="assets/email-verification-page.png" alt="email-verification-page" width="400">
+    <img src="assets/register-page.png" alt="register-page" width="300">
+    <img src="assets/email-verification-page.png" alt="email-verification-page" width="300">
    </li>
    <li>
     <strong>Login</strong> to the website successfully.<br>
@@ -166,8 +167,10 @@ AWS-TERRAFORM-BUCKETLIST/
    </li>
    <li><strong>Adding Items:</strong>Enter a title and select an image file.</li>
    <li><strong>Delete Items:</strong>Click delete icon to delete item from bucket list.</li>
-   <li><strong>Verification:</strong>Inspect the browser console to see the <code>fetchAuthSession()</code> handshake and ensure IAM credentials are valid.</li>
-   <li><strong>S3 Check:</strong> Verify uploaded images appear in your private S3 bucket in AWS Console under the <code>public/</code> prefix.</li>
+   <li>
+    <strong>S3 Check:</strong> Verify uploaded images appear in your private S3 bucket in AWS Console under the <code>public/</code> prefix.<br>
+    <img src="assets/s3-objects.png" alt="s3-objects" width="400">
+   </li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="roadmap">Project Roadmap</h2>
@@ -175,11 +178,10 @@ AWS-TERRAFORM-BUCKETLIST/
    <li>[x] Cognito User Pool & Identity Pool Integration</li>
    <li>[x] AppSync GraphQL API for Data Persistence</li>
    <li>[x] Terraform-to-Amplify Webhook Trigger</li>
-   <li>[x] Add and delete bucket item function</li>
+   <li>[x] Add, delete bucket item & upload image function</li>
    <li>[x] DynamoDB NoSQL Table for Item Persistence</li>
    <li>[x] AppSync GraphQL API for Data Mapping</li>
-   <li>[ ] Upload image function</li>
-   <li>[ ] S3 Media Storage with IAM Role Handshake</li>
+   <li>[x] S3 Media Storage with IAM Role Handshake</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="challenges-faced">Challenges</h2>
