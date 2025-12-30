@@ -52,9 +52,10 @@ function AuthenticatedApp({ signOut }) {
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  // Extract the username from user attributes
-  const displayName = user?.userId ?? 'Adventurer'; // Fallback
-  const preferredName = user?.signInDetails?.loginId || user?.username;
+
+  // Extract the username from the Cognito user object
+  const displayUsername = user?.userId ?? 'Adventurer';
+  const customUsername = user?.signInDetails?.loginId || user?.username;
 
   const fetchItems = async () => {
     try {
@@ -141,11 +142,13 @@ function AuthenticatedApp({ signOut }) {
               </div>
               <span className="font-bold text-xl tracking-tight">BucketList</span>
             </div>
-            {/* Displaying the User's Name */}
+
+            {/* NEW: Username Display */}
             <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
             <span className="text-sm font-medium text-slate-600 hidden md:block">
               Welcome, <span className="text-blue-600">
-                {user.attributes?.preferred_username || "Traveler"}
+                {/* Check for the preferred_username attribute specifically */}
+                {user?.attributes?.preferred_username || "Traveler"}
               </span>
             </span>
           </div>
@@ -260,7 +263,6 @@ export default function App() {
     <Authenticator 
       components={components} 
       loginMechanisms={['email']}
-      // This tells Cognito to save the input to preferred_username
       signUpAttributes={['preferred_username']}
       formFields={{
         signUp: {
@@ -269,10 +271,7 @@ export default function App() {
             placeholder: 'Choose a display name',
             isRequired: true,
             order: 1
-          },
-          email: { order: 2 },
-          password: { order: 3 },
-          confirm_password: { order: 4 }
+          }
         }
       }}
     >
