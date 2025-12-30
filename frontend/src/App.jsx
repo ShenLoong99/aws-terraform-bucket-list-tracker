@@ -52,6 +52,9 @@ function AuthenticatedApp({ signOut }) {
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  // Extract the username from user attributes
+  const displayName = user?.userId ?? 'Adventurer'; // Fallback
+  const preferredName = user?.signInDetails?.loginId || user?.username;
 
   const fetchItems = async () => {
     try {
@@ -131,11 +134,20 @@ function AuthenticatedApp({ signOut }) {
       {/* Navbar */}
       <nav className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-blue-600 p-1.5 rounded-lg text-white">
-              <CheckCircle size={20} />
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="bg-blue-600 p-1.5 rounded-lg text-white">
+                <CheckCircle size={20} />
+              </div>
+              <span className="font-bold text-xl tracking-tight">BucketList</span>
             </div>
-            <span className="font-bold text-xl tracking-tight">BucketList</span>
+            {/* Displaying the User's Name */}
+            <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
+            <span className="text-sm font-medium text-slate-600 hidden md:block">
+              Welcome, <span className="text-blue-600">
+                {user.attributes?.preferred_username || "Traveler"}
+              </span>
+            </span>
           </div>
           <button 
             onClick={signOut}
@@ -245,8 +257,26 @@ const components = {
 
 export default function App() {
   return (
-    <Authenticator components={components} loginMechanisms={['email']}>
-      {({ signOut }) => <AuthenticatedApp signOut={signOut} />}
+    <Authenticator 
+      components={components} 
+      loginMechanisms={['email']}
+      // This tells Cognito to save the input to preferred_username
+      signUpAttributes={['preferred_username']}
+      formFields={{
+        signUp: {
+          preferred_username: {
+            label: 'Username',
+            placeholder: 'Choose a display name',
+            isRequired: true,
+            order: 1
+          },
+          email: { order: 2 },
+          password: { order: 3 },
+          confirm_password: { order: 4 }
+        }
+      }}
+    >
+      {({ signOut, user }) => <AuthenticatedApp signOut={signOut} user={user} />}
     </Authenticator>
   );
 }

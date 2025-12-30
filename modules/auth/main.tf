@@ -10,16 +10,17 @@ resource "aws_cognito_user_pool" "pool" {
   }
 
   # This forces the Authenticator UI to show the Email field
+  # Standard attribute for a display name
   schema {
     attribute_data_type      = "String"
-    name                     = "email"
-    required                 = true
+    name                     = "preferred_username"
+    required                 = false # Standard attributes usually can't be 'required' if email is primary
     developer_only_attribute = false
     mutable                  = true
 
     string_attribute_constraints {
       min_length = 1
-      max_length = 2048
+      max_length = 100
     }
   }
 }

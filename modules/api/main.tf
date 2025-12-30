@@ -1,7 +1,7 @@
 // Connects the GraphQL API to the DynamoDB table.
 resource "aws_appsync_graphql_api" "api" {
   name                = "BucketListAPI"
-  schema              = file("schema.graphql")
+  schema              = file("${path.root}/schema.graphql")
   authentication_type = "AMAZON_COGNITO_USER_POOLS"
   user_pool_config {
     default_action = "ALLOW"

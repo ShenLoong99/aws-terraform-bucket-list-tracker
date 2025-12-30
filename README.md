@@ -1,190 +1,223 @@
 <a id="readme-top"></a>
-
 <div>
-  <h1>🗣️ AWS Polly Text-to-Speech</h1>
-  <p align="center">
-    <img src="assets/amazon-polly-img.jpg" alt="amazon-polly" width="200"><br>
-    <a target="_blank" href="https://ShenLoong99.github.io/my-terraform-aws-projects-2025/AWS-polly-text-to-speech/audio/
-    ">🎵 [Click here to listen to the intro]</a>
-  </p>
-  <p>
-      The <strong>AWS Polly Text-to-Speech</strong> project is a serverless cloud solution that converts text files stored in S3 into natural-sounding speech. Leveraging Amazon Polly, this application allows users to automatically generate audio from blogs, newsletters, scripts, or any text content. 
-      <br />
+   <h1>✅ Full-Stack BucketList Tracker</h1>
+   <p align="center"> <img src="assets/aws-amplify.jpg" alt="aws-amplify" width="800"/><br>
+      <strong>A Serverless Adventure Logging Application</strong> 
+   </p>
+   <p> 
+    The <strong>BucketList Tracker</strong> is a full-stack, serverless application that allows users to authenticate, manage their personal travel goals, and upload "inspiration photos" for each adventure. Built with React and powered by an automated AWS backend provisioned via Terraform. <br /> 
     <a href="#about-the-project"><strong>Explore the docs »</strong></a>
   </p>
 </div>
-
 <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#built-with">Built With</a></li>
-    <li><a href="#use-cases">Use Cases</a></li>
-    <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#getting-started">Getting Started</a></li>
-    <li><a href="#usage">Usage & Testing</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#cost-optimization">Cost Optimization</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
+   <summary>Table of Contents</summary>
+   <ol>
+      <li><a href="#about-the-project">About The Project</a></li>
+      <li><a href="#built-with">Built With</a></li>
+      <li><a href="#use-cases">Use Cases</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#file-structure">File Structure</a></li>
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#usage">Usage & Testing</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#cost-optimization">Cost Optimization</a></li>
+      <li><a href="#contact">Contact</a></li>
+   </ol>
 </details>
-
 <h2 id="about-the-project">About The Project</h2>
-<p>
-    This project demonstrates the power of <strong>serverless AWS architecture</strong> and <strong>Infrastructure as Code (IaC)</strong> with Terraform. Text files uploaded to an S3 bucket are automatically processed by a Lambda function that calls Amazon Polly to generate MP3 audio files. This automated pipeline enhances accessibility, user engagement, and content distribution workflows.
-</p>
+<p> This project demonstrates a robust <strong>Infrastructure as Code (IaC)</strong> pipeline for a modern web application. It solves the common challenge of 1-click deployments by using Terraform Cloud to manage AWS resources and a custom <strong>Webhook Trigger</strong> system to ensure the frontend build always has the latest infrastructure IDs (Cognito Pools, S3 Buckets, AppSync URLs) without manual configuration. </p>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="built-with">Built With</h2>
-<p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" alt="terraform" width="45" height="45" style="margin: 10px;"/>
-  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Resource-Icons_01312022/Res_Storage/Res_48_Light/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Light.svg" alt="s3" width="45" height="45" style="margin: 10px;"/>
-  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Architecture-Service-Icons_01312022/Arch_Machine-Learning/48/Arch_Amazon-Polly_48.svg" alt="polly" width="45" height="45" style="margin: 10px;"/>
-  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Architecture-Service-Icons_01312022/Arch_Security-Identity-Compliance/48/Arch_AWS-Identity-and-Access-Management_48.svg" alt="iam" width="45" height="45" style="margin: 10px;"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="45" height="45" style="margin: 10px;"/>
+<p> 
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="react" width="45" height="45" style="margin: 10px;"/> 
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" alt="terraform" width="45" height="45" style="margin: 10px;"/> 
+  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Architecture-Service-Icons_01312022/Arch_Security-Identity-Compliance/48/Arch_Amazon-Cognito_48.svg" alt="cognito" width="45" height="45" style="margin: 10px;"/> 
+  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Architecture-Service-Icons_01312022/Arch_Front-End-Web-Mobile/48/Arch_AWS-Amplify_48.svg" alt="amplify" width="45" height="45" style="margin: 10px;"/> 
+  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Architecture-Service-Icons_01312022/Arch_App-Integration/Arch_48/Arch_AWS-AppSync_48.svg" alt="appsync" width="45" height="45" style="margin: 10px;"/> 
+  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Resource-Icons_01312022/Res_Storage/Res_48_Light/Res_Amazon-Simple-Storage-Service_S3-Standard_48_Light.svg" alt="s3" width="45" height="45" style="margin: 10px;"/> 
+  <img src="https://raw.githubusercontent.com/weibeld/aws-icons-svg/main/q1-2022/Architecture-Service-Icons_01312022/Arch_Database/48/Arch_Amazon-DynamoDB_48.svg" alt="dynamodb" width="45" height="45" style="margin: 10px;"/> </p>
 </p>
 <ul>
-  <li><strong>Terraform:</strong> Provision and manage AWS infrastructure (S3 buckets, IAM roles, Lambda) via IaC.</li>
-  <li><strong>AWS S3:</strong> Secure object storage for input text files and output audio.</li>
-  <li><strong>Amazon Polly:</strong> Converts text into high-quality speech.</li>
-  <li><strong>AWS IAM:</strong> Implements least-privilege access for Lambda to interact with S3 and Polly.</li>
-  <li><strong>Python (Boto3):</strong> Handles S3 events, Polly API calls, and audio file storage.</li>
+   <li><strong>React (Vite):</strong> Fast, modern UI with Tailwind CSS for styling.</li>
+   <li><strong>Terraform:</strong> Full IaC management of Cognito, S3, AppSync, and Amplify Hosting.</li>
+   <li><strong>AWS Cognito:</strong> Multi-layer auth using User Pools (Identity) and Identity Pools (IAM Credentials).</li>
+   <li><strong>AWS AppSync (GraphQL):</strong> Managed API for real-time bucket list data storage.</li>
+   <li><strong>Amazon S3:</strong> Secure storage for bucket list adventure images.</li>
+   <li><strong>Amazon DynamoDB:</strong> NoSQL database used to store bucket list items and user-specific metadata.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="use-cases">Use Cases</h2>
 <ul>
-    <li><strong>Content Accessibility:</strong> Automatically generate audio versions of blog posts or newsletters.</li>
-    <li><strong>Learning & Education:</strong> Convert textbooks or study materials into narrated audio for auditory learners.</li>
-    <li><strong>Podcast & Media Automation:</strong> Quickly produce spoken content from written scripts.</li>
-    <li><strong>Voice Assistants:</strong> Backend engine for applications that read content aloud on demand.</li>
+   <li><strong>Travel Planning:</strong> Log future travel destinations with visual references.</li>
+   <li><strong>Serverless Showcase:</strong> A template for production-grade React + AWS + Terraform deployments.</li>
+   <li><strong>Secure Media Handling:</strong> Demonstrates Cognito Identity Pool "AssumeRole" logic for client-side S3 uploads.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="architecture">Architecture</h2>
-<p align="center">
-  <img src="assets/AWS-polly-text-to-speech.jpg" alt="Architecture Diagram" width="800">
-</p>
-<p>
-  The serverless architecture is designed for simplicity, scalability, and cost-efficiency:
-</p>
+<p> The architecture is built on a <strong>Deterministic Deployment</strong> model: </p>
 <ol>
-  <li><strong>Input Layer:</strong> Users upload text files (articles, scripts, newsletters) to the input S3 bucket.</li>
-  <li><strong>Processing Layer:</strong> A Lambda function is triggered by S3 events. It reads the text and calls Amazon Polly to synthesize speech.</li>
-  <li><strong>Identity & Security:</strong> IAM role grants the Lambda permission to access the buckets and invoke Polly with least privilege.</li>
-  <li><strong>Output Layer:</strong> Generated MP3 files are saved to the output S3 bucket. Optional lifecycle rules and encryption ensure cost savings and security.</li>
-  <li><strong>CloudWatch Logs:</strong> Captures detailed Lambda execution logs for monitoring, debugging, and verifying Polly TTS output.</li>
+   <li><strong>State Management:</strong> Terraform Cloud manages the AWS backend.</li>
+   <li><strong>The Handshake:</strong> Cognito Identity Pools are linked to IAM Roles via <code>roles_attachment</code> to provide scoped credentials for S3.</li>
+   <li><strong>CI/CD Bridge:</strong> Amplify "Auto-build" is disabled. Terraform triggers a deployment via an <strong>Amplify Webhook</strong> only after successfully updating Environment Variables.</li>
+   <li><strong>Storage:</strong> S3 Bucket Policies and CORS allow authenticated browser uploads via AWS Amplify SDK.</li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
+<h2 id="file-structure">File Structure</h2>
+<pre>
+AWS-TERRAFORM-BUCKETLIST/
+├── .terraform/                     # Local Terraform environment data
+├── assets/                         # Documentation images/media for README
+├── frontend/                       # React + Vite application source code
+│   ├── src/
+│   │   ├── components/             # Reusable UI (Auth, Upload, List)
+│   │   ├── App.jsx                 # Main Logic + Amplify Configuration
+│   │   └── main.jsx                # Entry point
+│   ├── public/                     # Static assets (logo, etc.)
+│   ├── .env                        # Local development variables
+│   ├── package.json                # React Dependencies (aws-amplify, lucide-react)
+│   └── vite.config.js              # Vite configuration
+├── modules/                        # Infrastructure as Code modules
+│   ├── api/                        # AppSync GraphQL API configuration
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   ├── auth/                       # Cognito User Pool & Identity Pool
+│   │   ├── main.tf                 # Identity Pool & Role Handshake logic
+│   │   ├── outputs.tf
+│   │    variables.tf
+│   ├── database/                   # DynamoDB or other data storage
+│   │   ├── main.tf                 
+│   │   └── outputs.tf
+│   ├── hosting/                    # Amplify App, Branch, & Webhook Trigger
+│   │   ├── main.tf                 # Webhook & build trigger logic
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── storage/                    # S3 Bucket for image uploads
+│       ├── main.tf                 # Bucket policy & CORS configuration
+│       ├── outputs.tf
+│       └── variables.tf
+├── .gitignore                      # Excludes secrets and temporary files
+├── .terraform.lock.hcl             # Terraform provider lock file
+├── amplify.yml                     # Amplify build specification
+├── main.tf                         # Root module (Instantiates all modules)
+├── outputs.tf                      # Root level outputs (e.g., App URL)
+├── README.md                       # Project documentation
+├── schema.graphql                  # AppSync GraphQL schema definition
+├── terraform.tf                    # Terraform & Provider configuration
+├── terraform.tfstate               # Local state file (if not using Cloud)
+├── terraform.tfstate.backup        # State backup file
+└── variables.tf                    # Root level input variables
+</pre>
+<div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 <h2 id="getting-started">Getting Started</h2>
 <h3>Prerequisites</h3>
 <ul>
-    <li>Active <strong>AWS account</strong> with S3, Lambda, and Polly access.</li>
-    <li><strong>Terraform CLI / Terraform Cloud(optional)</strong> for IaC deployment.</li>
-    <li><strong>Python 3.x</strong> installed locally for testing Lambda code.</li>
+   <li><strong>AWS Account:</strong> IAM credentials with Administrator access.</li>
+   <li><strong>Terraform Cloud Account:</strong> A free account with a workspace configured for "API-driven" or "Version Control" workflow.</li>
+   <li><strong>GitHub Personal Access Token (PAT):</strong> Required for Terraform to link the AWS Amplify App to your source code.</li>
 </ul>
-
+<h3>GitHub Token Setup</h3>
+<p>To allow Terraform to provision the Amplify project, you must create a token that grants AWS access to your repository:</p>
+<ol>
+   <li>Go to <strong>GitHub Settings > Developer Settings > Personal Access Tokens (Tokens classic)</strong>.</li>
+   <li>Generate a new token with <code>repo</code> and <code>admin:repo_hook</code> scopes</li>
+   <li><strong>Important:</strong> Copy this token immediately. You will provide this to Terraform Cloud as a variable named <code>github_token</code>.</li>
+</ol>
+<h3>Terraform Cloud Configuration</h3>
+<ol>
+   <li>Create a new <strong>Workspace</strong> in Terraform Cloud.</li>
+   <li>In the Variables tab, add the following <strong>Terraform Variables:</strong>
+   <ul>
+    <li><strong>github_token</strong>: (The PAT created in Step 1, marked as Sensitive).</li>
+   </ul>
+   </li>
+   <li>
+    Add the following <strong>Environment Variables</strong> (AWS Credentials):
+    <ul>
+      <li><code>AWS_ACCESS_KEY_ID</code></li>
+      <li><code>AWS_SECRET_ACCESS_KEY</code></li>
+   </ul>
+   </li>
+</ol>
 <h3>Installation & Deployment</h3>
 <ol>
-    <li>Clone the repository.</li>
-    <li>Provision infrastructure via Terraform Cloud. Approve the plan to create S3 buckets, IAM roles, and Lambda function.</li>
-    <li>Configure local environment variables (e.g., <code>OUTPUT_BUCKET</code>).</li>
+   <li>Clone the repository.</li>
+   <li><strong>Initialize & Apply:</strong> Push your code to GitHub. Terraform Cloud will automatically detect the change, run a <code>plan</code>, and wait for your approval.</li>
+   <li>
+      <strong>The Webhook Handshake:</strong> Once you approve the plan, Terraform will create the backend. It will then automatically trigger the <strong>AWS Amplify Webhook</strong> to start the frontend build.<br>
+      <img src="assets/deployment-log.png" alt="deployment-log" width="400" />
+   </li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="usage">Usage & Testing</h2>
 <ol>
   <li>
-    Upload a text file (e.g., <code>malaysia-news-article.txt</code>) to the input S3 bucket created by Terraform.<br>
-    <pre>aws s3 cp &lt;text-file-name&gt; s3://&lt;your-s3-input-bucket-name&gt;</pre>
-    <img src="assets/upload-text-into-bucket.png" alt="upload-file" width="800"><br><br>
-    <img src="assets/input-bucket-objects.png" alt="input-bucket-objects" width="800">
-  </li>
-  <li>
-    Verify if the file is being processed (or go to AWS console and check in your S3 output bucket)<br>
-    <pre>aws s3 ls s3://&lt;your-s3-output-bucket-name&gt;</pre>
-    <img src="assets/verify-files-in-bucket.png" alt="verify-file" width="800"><br><br>
-    <img src="assets/output-bucket-objects.png" alt="output-bucket-objects" width="800">
-  </li>
-  <li>
-    Check the output S3 bucket for the generated MP3 file by downloading it.<br>
-    <pre>aws s3 cp s3://&lt;your-s3-output-bucket-name&gt;/&lt;audio-file-name&gt; &lt;destination/file-name&gt;</pre>
-    <img src="assets/download-mp3-from-bucket.png" alt="verify-file" width="800"><br>
-    <a target="_blank" href="https://ShenLoong99.github.io/my-terraform-aws-projects-2025/AWS-polly-text-to-speech/audio/
-    ">🎵 [Click here to listen to the Output]</a>
-  </li>
-  <li>
-    View CloudWatch logs to confirm successful execution or troubleshoot errors.<br>
-    <img src="assets/log-events-lambda-polly.png" alt="verify-file" width="800">
-  </li>
+    <strong>View</strong> the website.<br>
+    <img src="assets/login-page.png" alt="login-page" width="400">
+   </li>
+   <li>
+    <strong>Authentication:</strong>Sign up using the Cognito Authenticator UI.<br>
+    <img src="assets/register-page.png" alt="register-page" width="400">
+    <img src="assets/email-verification-page.png" alt="email-verification-page" width="400">
+   </li>
+   <li>
+    <strong>Login</strong> to the website successfully.<br>
+    <img src="assets/buckiet-list-page.png" alt="buckiet-list-page" width="400">
+   </li>
+   <li><strong>Adding Items:</strong>Enter a title and select an image file.</li>
+   <li><strong>Delete Items:</strong>Click delete icon to delete item from bucket list.</li>
+   <li><strong>Verification:</strong>Inspect the browser console to see the <code>fetchAuthSession()</code> handshake and ensure IAM credentials are valid.</li>
+   <li><strong>S3 Check:</strong> Verify uploaded images appear in your private S3 bucket in AWS Console under the <code>public/</code> prefix.</li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="roadmap">Project Roadmap</h2>
 <ul>
-  <li>[x] Input S3 bucket creation</li>
-  <li>[x] Output S3 bucket creation with server-side encryption and lifecycle rules</li>
-  <li>[x] IAM role & policy for Lambda</li>
-  <li>[x] Lambda function development with Polly integration</li>
-  <li>[x] Logging and error handling for CloudWatch</li>
-  <li>[x] CLI and local testing setup</li>
+   <li>[x] Cognito User Pool & Identity Pool Integration</li>
+   <li>[x] AppSync GraphQL API for Data Persistence</li>
+   <li>[x] Terraform-to-Amplify Webhook Trigger</li>
+   <li>[x] Add and delete bucket item function</li>
+   <li>[x] DynamoDB NoSQL Table for Item Persistence</li>
+   <li>[x] AppSync GraphQL API for Data Mapping</li>
+   <li>[ ] Upload image function</li>
+   <li>[ ] S3 Media Storage with IAM Role Handshake</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="challenges-faced">Challenges</h2>
 <table>
-    <thead>
-        <tr>
-            <th>Challenge</th>
-            <th>Solution</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong>IAM Permission Errors</strong></td>
-            <td>
-                Refined IAM policies with least-privilege access and explicit CloudWatch permissions.
-            </td>
-        </tr>
-        <tr>
-            <td><strong>CloudWatch Logs Not Destroyed</strong></td>
-            <td>
-                Managed CloudWatch logs explicitly in Terraform with retention settings.
-            </td>
-        </tr>
-        <tr>
-            <td><strong>Lambda Packaging Issues</strong></td>
-            <td>
-                Used Terraform archive_file to package Lambda in a platform-independent way.
-            </td>
-        </tr>
-        <tr>
-            <td><strong>Polly Limits & Cost Control</strong></td>
-            <td>
-                Added character guardrails, S3 lifecycle rules, and resource tagging.
-            </td>
-        </tr>
-        <tr>
-            <td><strong>GitHub README Audio Limitation</strong></td>
-            <td>
-                Enabled GitHub Pages to host a simple HTML demo page.
-            </td>
-        </tr>
-    </tbody>
+   <thead>
+      <tr>
+         <th>Challenge</th>
+         <th>Solution</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td><strong>Secure GitHub Access</strong></td>
+         <td>Used GitHub PATs stored as Sensitive Variables in Terraform Cloud to prevent hardcoding credentials in the <code>hosting module.</code></td>
+      </tr>
+      <tr>
+         <td><strong>Credential Race Condition</strong></td>
+         <td>Disabled Amplify auto-build and implemented a <code>null_resource</code> with <code>local-exec</code> to trigger builds only after Infra variables are set.</td>
+      </tr>
+      <tr>
+         <td><strong>Empty IAM Credentials</strong></td>
+         <td>Corrected the <code>provider_name</code> in the Identity Pool by stripping <code>https://</code> from the User Pool endpoint.</td>
+      </tr>
+      <tr>
+         <td><strong>Unauthenticated Access</strong></td>
+         <td>Implemented a dummy <code>unauthenticated</code> IAM role to satisfy Cognito's requirement for a complete Role Mapping.</td>
+      </tr>
+   </tbody>
 </table>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
-<h2 id="cost-optimization">Cost Optimization (Free Tier)</h2>
+<h2 id="cost-optimization">Cost Optimization</h2>
 <ul>
-  <li><strong>Free Tier S3 & Polly:</strong> Small-scale demos stay within AWS free tier limits.</li>
-  <li><strong>Lifecycle Rules:</strong> Automatically delete or transition audio files after 30 days to reduce storage costs.</li>
-  <li><strong>Character Limits:</strong> Guard against text >10,000 characters per file to avoid unnecessary Polly charges.</li>
-  <li><strong>Terraform Manual Apply:</strong> Prevents accidental resource creation that could incur costs.</li>
+   <li><strong>Serverless Pricing:</strong> No costs incurred while the app is idle (Pay-as-you-go).</li>
+   <li><strong>Free Tier:</strong> Stays within limits for the first 50,000 monthly active users (Cognito).</li>
+   <li><strong>Amplify Webhooks:</strong> Prevents multiple failed builds by ensuring the environment is ready before building.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 <h2 id="contact">Contact</h2>
 <p>Tan Si Kai - <a href="https://linkedin.com/in/si-kai-tan">LinkedIn</a></p>
-<p>Project Link: <a href="https://github.com/ShenLoong99/my-terraform-aws-projects-2025/edit/main/AWS-polly-text-to-speech">AWS Polly Text-to-Speech Repo</a></p>
+<p>Project Link: <a href="hthttps://github.com/ShenLoong99/aws-terraform-bucket-list-tracker">BucketList Tracker Repo</a></p>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
