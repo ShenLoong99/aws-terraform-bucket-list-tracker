@@ -28,13 +28,16 @@
       <li><a href="#getting-started">Getting Started</a></li>
       <li><a href="#usage">Usage & Testing</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#challenges-faced">Challenges</a></li>
       <li><a href="#cost-optimization">Cost Optimization</a></li>
       <li><a href="#contact">Contact</a></li>
    </ol>
 </details>
+
 <h2 id="about-the-project">About The Project</h2>
 <p> This project demonstrates a robust <strong>Infrastructure as Code (IaC)</strong> pipeline for a modern web application. It solves the common challenge of 1-click deployments by using Terraform Cloud to manage AWS resources and a custom <strong>Webhook Trigger</strong> system to ensure the frontend build always has the latest infrastructure IDs (Cognito Pools, S3 Buckets, AppSync URLs) without manual configuration. </p>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="built-with">Built With</h2>
 <p> 
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="react" width="45" height="45" style="margin: 10px;"/> 
@@ -54,6 +57,7 @@
    <li><strong>Amazon DynamoDB:</strong> NoSQL database used to store bucket list items and user-specific metadata.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="use-cases">Use Cases</h2>
 <ul>
    <li><strong>Travel Planning:</strong> Log future travel destinations with visual references.</li>
@@ -61,6 +65,7 @@
    <li><strong>Secure Media Handling:</strong> Demonstrates Cognito Identity Pool "AssumeRole" logic for client-side S3 uploads.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="architecture">Architecture</h2>
 <img src="assets/bucket-list-tracker.jpg" alt="archicture-diagram" width="800">
 <p> The architecture is built on a <strong>Deterministic Deployment</strong> model: </p>
@@ -71,6 +76,7 @@
    <li><strong>Storage:</strong> S3 Bucket Policies and CORS allow authenticated browser uploads via AWS Amplify SDK.</li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="file-structure">File Structure</h2>
 <pre>
 AWS-TERRAFORM-BUCKETLIST/
@@ -117,6 +123,7 @@ AWS-TERRAFORM-BUCKETLIST/
 └── variables.tf                    # Root level input variables
 </pre>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="getting-started">Getting Started</h2>
 <h3>Prerequisites</h3>
 <ul>
@@ -160,6 +167,7 @@ AWS-TERRAFORM-BUCKETLIST/
    </li>
 </ol>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="usage">Usage & Testing</h2>
 <ol>
   <li>
@@ -192,6 +200,7 @@ AWS-TERRAFORM-BUCKETLIST/
    <li>[x] <strong>UI/UX:</strong> Add/Delete items with real-time S3 image cleanup</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="challenges-faced">Challenges</h2>
 <table>
    <thead>
@@ -232,6 +241,7 @@ AWS-TERRAFORM-BUCKETLIST/
    </tbody>
 </table>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="cost-optimization">Cost Optimization</h2>
 <ul>
    <li><strong>Serverless Pricing:</strong> No costs incurred while the app is idle (Pay-as-you-go).</li>
@@ -240,6 +250,7 @@ AWS-TERRAFORM-BUCKETLIST/
    <li><strong>Storage Efficiency:</strong> Explicitly deletes media from S3 when a list item is removed, ensuring you don't pay for "ghost" images that are no longer referenced in the database.</li>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
+
 <h2 id="contact">Contact</h2>
 <p>Tan Si Kai - <a href="https://linkedin.com/in/si-kai-tan">LinkedIn</a></p>
 <p>Project Link: <a href="https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker">BucketList Tracker Repo</a></p>
