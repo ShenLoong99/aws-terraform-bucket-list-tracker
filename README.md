@@ -130,6 +130,7 @@ AWS-TERRAFORM-BUCKETLIST/
    <li><strong>AWS Account:</strong> IAM credentials with Administrator access.</li>
    <li><strong>Terraform Cloud Account:</strong> A free account with a workspace configured for "API-driven" or "Version Control" workflow.</li>
    <li><strong>GitHub Personal Access Token (PAT):</strong> Required for Terraform to link the AWS Amplify App to your source code.</li>
+   <li><strong>Set your AWS Region:</strong> Set to whatever <code>aws_region</code> you want in <code>variables.tf</code>.</li>
 </ul>
 <h3>GitHub Token Setup</h3>
 <p>To allow Terraform to provision the Amplify project, you must create a token that grants AWS access to your repository:</p>
@@ -138,7 +139,16 @@ AWS-TERRAFORM-BUCKETLIST/
    <li>Generate a new token with <code>repo</code> and <code>admin:repo_hook</code> scopes</li>
    <li><strong>Important:</strong> Copy this token immediately. You will provide this to Terraform Cloud as a variable named <code>github_token</code>.</li>
 </ol>
-<h3>Terraform Cloud Configuration</h3>
+
+<h3>Terraform State Management</h3>
+<p>Select one:</p>
+<ol>
+   <li>Terraform Cloud</li>
+   <li>Terraform Local CLI</li>
+</ol>
+
+<h4>Terraform Cloud Configuration</h4>
+<p>If you choose Terraform Cloud, please follow the steps below:</p>
 <ol>
    <li>Create a new <strong>Workspace</strong> in Terraform Cloud.</li>
    <li>In the Variables tab, add the following <strong>Terraform Variables:</strong>
@@ -154,10 +164,34 @@ AWS-TERRAFORM-BUCKETLIST/
    </ul>
    </li>
 </ol>
+
+<h4>Terraform Local CLI Configuration</h4>
+<p>If you choose Terraform Local CLI, please follow the steps below:</p>
+<ol>
+   <li>
+      Comment the <code>backend</code> block in <code>terraform.tf</code>:
+      <pre># backend "remote" {
+#   hostname     = "app.terraform.io"
+#   organization = "my-terraform-aws-projects-2025"
+#   workspaces {
+#     name = "bucket-list-tracker"
+#   }
+# }</pre>
+   </li>
+   <li>
+    Add the following <strong>Environment Variables</strong> (AWS Credentials):
+    <pre>git bash command:
+export AWS_ACCESS_KEY_ID=&lt;your-aws-access-key-id&gt;
+export AWS_SECRET_ACCESS_KEY=&lt;your-aws-secret-access-key&gt;
+export TF_VAR_github_token=&lt;your-github-token&gt;</pre>
+   </li>
+</ol>
+
 <h3>Installation & Deployment</h3>
 <ol>
    <li>Clone the repository.</li>
-   <li><strong>Initialize & Apply:</strong> Push your code to GitHub. Terraform Cloud will automatically detect the change, run a <code>plan</code>, and wait for your approval.</li>
+   <li><strong>Terraform Cloud:</strong> → <strong>Initialize & Apply:</strong> Push your code to GitHub. Terraform Cloud will automatically detect the change, run a <code>plan</code>, and wait for your approval.</li>
+   <li><strong>Terraform CLI:</strong> → <strong>Initialize & Apply:</strong> Run <code>terraform init</code> → <code>terraform plan</code> → <code>terraform apply</code>, and wait for your approval.</li>
    <li>
       <strong>The Webhook Handshake:</strong> Once you approve the plan, Terraform will create the backend. It will then automatically trigger the <strong>AWS Amplify Webhook</strong> to start the frontend build.<br>
       <img src="assets/deployment-log.png" alt="deployment-log" width="400" />
