@@ -30,7 +30,6 @@
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#challenges-faced">Challenges</a></li>
       <li><a href="#cost-optimization">Cost Optimization</a></li>
-      <li><a href="#contact">Contact</a></li>
    </ol>
 </details>
 
@@ -190,8 +189,8 @@ export TF_VAR_github_token=&lt;your-github-token&gt;</pre>
 <h3>Installation & Deployment</h3>
 <ol>
    <li>Clone the repository.</li>
-   <li><strong>Terraform Cloud:</strong> → <strong>Initialize & Apply:</strong> Push your code to GitHub. Terraform Cloud will automatically detect the change, run a <code>plan</code>, and wait for your approval.</li>
-   <li><strong>Terraform CLI:</strong> → <strong>Initialize & Apply:</strong> Run <code>terraform init</code> → <code>terraform plan</code> → <code>terraform apply</code>, and wait for your approval.</li>
+   <li><strong>Terraform Cloud</strong> → <strong>Initialize & Apply:</strong> Push your code to GitHub. Terraform Cloud will automatically detect the change, run a <code>plan</code>, and wait for your approval.</li>
+   <li><strong>Terraform CLI</strong> → <strong>Initialize & Apply:</strong> Run <code>terraform init</code> → <code>terraform plan</code> → <code>terraform apply</code>, and wait for your approval.</li>
    <li>
       <strong>The Webhook Handshake:</strong> Once you approve the plan, Terraform will create the backend. It will then automatically trigger the <strong>AWS Amplify Webhook</strong> to start the frontend build.<br>
       <img src="assets/deployment-log.png" alt="deployment-log" width="400" />
@@ -285,11 +284,6 @@ export TF_VAR_github_token=&lt;your-github-token&gt;</pre>
 </ul>
 <div align="right"><a href="#readme-top">↑ Back to Top</a></div>
 
-<h2 id="contact">Contact</h2>
-<p>Tan Si Kai - <a href="https://linkedin.com/in/si-kai-tan">LinkedIn</a></p>
-<p>Project Link: <a href="https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker">BucketList Tracker Repo</a></p>
-<div align="right"><a href="#readme-top">↑ Back to Top</a></div>
-
 [contributors-shield]: https://img.shields.io/github/contributors/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
 [contributors-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
@@ -301,4 +295,4 @@ export TF_VAR_github_token=&lt;your-github-token&gt;</pre>
 [license-shield]: https://img.shields.io/github/license/ShenLoong99/aws-terraform-bucket-list-tracker.svg?style=for-the-badge
 [license-url]: https://github.com/ShenLoong99/aws-terraform-bucket-list-tracker/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/https://linkedin.com/in/si-kai-tan
+[linkedin-url]: https://linkedin.com/in/si-kai-tan
