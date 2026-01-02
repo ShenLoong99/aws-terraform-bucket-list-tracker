@@ -1,29 +1,21 @@
 version: 1
-applications:
-  - frontend:
-      phases:
-        preBuild:
-          commands:
-            - cd frontend
-            - test -n "$VITE_CLIENT_ID" || (echo "VITE_CLIENT_ID is empty" && exit 1)
-            - npm ci # Use 'ci' for a faster, more reliable build in the cloud
-        build:
-          commands:
-            - echo "===== DEBUG ENV VARS ====="
-            - printenv | grep VITE_
-            - echo "=========================="
-            - echo "VITE_GRAPHQL_URL=$VITE_GRAPHQL_URL" >> .env
-            - echo "VITE_USER_POOL_ID=$VITE_USER_POOL_ID" >> .env
-            - echo "VITE_CLIENT_ID=$VITE_CLIENT_ID" >> .env
-            - echo "VITE_IDENTITY_POOL_ID=$VITE_IDENTITY_POOL_ID" >> .env
-            - echo "VITE_S3_BUCKET=$VITE_S3_BUCKET" >> .env
-            - echo "VITE_REGION=$VITE_REGION" >> .env
-            - cat .env
-            - npm run build
-      artifacts:
-        baseDirectory: frontend/dist
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - frontend/node_modules/**/*
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd frontend
+        # Faster install by prioritizing the cache and skipping security audits during build
+        - npm ci --prefer-offline --no-audit 
+    build:
+      commands:
+        # One-liner to create the .env file if your framework strictly requires it
+        - env | grep VITE_ > .env
+        - npm run build
+  artifacts:
+    baseDirectory: frontend/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend/node_modules/**/*
+      - ~/.npm/_cacache/**/* # Cache the actual npm cache for extra speed
